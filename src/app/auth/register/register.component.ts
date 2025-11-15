@@ -15,6 +15,7 @@ export class RegisterComponent implements OnInit {
   hideConfirmPass = signal(true);
   imageUrl: string | null = null;
   selectedFile: File | null = null;
+  errorMessage!: string
 
   // Define the user registration form with validation rules
   userData: FormGroup = new FormGroup({
@@ -85,10 +86,14 @@ export class RegisterComponent implements OnInit {
           if (res.success) {
             this._ToastrService.success(res.message)
             this._Router.navigate(['/auth/login'])
+          }else{
+            console.log("error 404");
+            
           }
         },
         error: (err) => {
-          console.error(err);
+          console.log(err);
+          this.errorMessage = err.error.message;
         }
       });
     } else {

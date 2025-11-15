@@ -15,6 +15,9 @@
                                     class="font-bold cursor-pointer text-primary text-decoration-none">
                                     Login here!</a>
                             </p>
+                            <p class="text-danger text-center" *ngIf="errorMessage">
+                                {{ errorMessage }}
+                            </p>
                         </div>
                         <form (ngSubmit)="Register(userData)" [formGroup]="userData" class="register-form">
                             <div class="profile-image mb-3 d-flex justify-content-center">
@@ -101,9 +104,16 @@
                                     <mat-error *ngIf="userData.get('password')?.hasError('required')">
                                         Password is required
                                     </mat-error>
+                                    <mat-error
+                                        *ngIf="userData.get('password')?.touched && userData.get('password')?.hasError('pattern')">
+                                        Password must be at least 8 characters long and include at least one lowercase
+                                        letter, one number, and one special character (&#64;$!%*?&).
+                                    </mat-error>
+
+
                                 </mat-form-field>
 
-                                <mat-form-field class="w-100 mb-2" appearance="outline">
+                                <mat-form-field class="w-100 my-2" appearance="outline">
                                     <mat-label>Confirm Password</mat-label>
                                     <input formControlName="confirmPassword" matInput
                                         [type]="hideConfirmPass() ? 'password' : 'text'" required />
@@ -133,6 +143,3 @@
         </div>
     </div>
 </section>
-
-
-

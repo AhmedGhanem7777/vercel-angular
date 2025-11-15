@@ -1,0 +1,35 @@
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container">
+    <a class="navbar-brand"><span class="primary-color">Stay</span>cation.</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0 d-flex justify-content-center align-items-center">
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['/landing-page/home']" routerLinkActive="link-active">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['/landing-page/explore']" routerLinkActive="link-active">Explore</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['/landing-page/favorites']" routerLinkActive="link-active">Favorites</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <img [src]="userImage ? userImage : 'assets/images/avatar.png'" class="rounded-5" alt="user">{{userName}}
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" [routerLink]="['/landing-page/profile']"><i
+                  class="fa-solid fa-user me-2 primary-color"></i>Profile</a></li>
+            <li><a class="dropdown-item" [routerLink]="['/auth/change-pass']"><i
+                  class="fa-solid fa-unlock-keyhole me-2 primary-color"></i>Change Password</a></li>
+            <li><a (click)="logout()" class="dropdown-item cursor-pointer"><i
+                  class="fa-solid fa-right-from-bracket me-2 primary-color"></i>Log Out</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

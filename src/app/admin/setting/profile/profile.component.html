@@ -1,0 +1,173 @@
+<div class="profile-container">
+    <div class="container py-5">
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="card mb-4 profile-card" [@cardAnimation]>
+                    <div class="card-body text-center">
+                        <div class="profile-image-container" *ngIf="!loading">
+                            <img [src]="user.profileImage" alt="Profile Image" class="profile-image">
+                            <div class="profile-status" [ngClass]="{'verified': user.verified}">
+                                <i class="fas" [ngClass]="user.verified ? 'fa-check' : 'fa-times'"></i>
+                            </div>
+                        </div>
+                        <div class="profile-image-container" *ngIf="loading">
+                            <img src="../../../../assets/images/user-Csi4vjZh.png" alt="Profile Image"
+                                class="profile-image">
+                            <div class="profile-status" [ngClass]="{'verified': true}">
+                                <i class="fas" [ngClass]="true ? 'fa-check' : 'fa-times'"></i>
+                            </div>
+                        </div>
+                        <h2 class="my-3">{{ user.userName }}</h2>
+                        <p class="text-muted mb-1">{{ user.role }}</p>
+                        <p class="text-muted mb-4">{{ user.country }}</p>
+                        <div class="d-flex justify-content-center mb-2">
+                            <button type="button" class="btn btn-success me-2" (click)="toggleEdit()">
+                                <i class="fas fa-edit me-2"></i>Edit Profile
+                            </button>
+                            <button type="button" class="btn btn-outline-primary">
+                                <i class="fas fa-cog me-2"></i>Settings
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card mb-4 mb-lg-0 activity-card" [@fadeIn]>
+                    <div class="card-body p-0">
+                        <ul class="list-group list-group-flush rounded-3">
+                            <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                                <i class="fas fa-globe fa-lg text-warning"></i>
+                                <p class="mb-0">Account Status: <span class="badge"
+                                        [ngClass]="user.verified ? 'bg-success' : 'bg-danger'">
+                                        {{ user.verified ? 'Verified' : 'Unverified' }}
+                                    </span></p>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                                <i class="fas fa-calendar-alt fa-lg" style="color: #333333;"></i>
+                                <p class="mb-0">Member since: {{ user.createdAt | formatDate }}</p>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center p-3">
+                                <i class="fas fa-clock fa-lg" style="color: #55acee;"></i>
+                                <p class="mb-0">Last updated: {{ user.updatedAt | formatDate }}</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-8">
+                <div class="card mb-4 info-card" [@fadeIn]>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0 field-label">User ID</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0 field-value">{{ user._id }}</p>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0 field-label">Full Name</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0 field-value" *ngIf="!isEditing">{{ user.userName }}</p>
+                                <input *ngIf="isEditing" type="text" class="form-control" [(ngModel)]="user.userName">
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0 field-label">Email</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0 field-value" *ngIf="!isEditing">{{ user.email }}</p>
+                                <input *ngIf="isEditing" type="email" class="form-control" [(ngModel)]="user.email">
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0 field-label">Phone</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0 field-value" *ngIf="!isEditing">{{ user.phoneNumber }}</p>
+                                <input *ngIf="isEditing" type="tel" class="form-control" [(ngModel)]="user.phoneNumber">
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0 field-label">Country</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0 field-value" *ngIf="!isEditing">{{ user.country }}</p>
+                                <input *ngIf="isEditing" type="text" class="form-control" [(ngModel)]="user.country">
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-sm-3">
+                                <p class="mb-0 field-label">Role</p>
+                            </div>
+                            <div class="col-sm-9">
+                                <p class="text-muted mb-0 field-value">
+                                    <span class="badge role-badge">{{ user.role }}</span>
+                                </p>
+                            </div>
+                        </div>
+
+                        <div *ngIf="isEditing" class="mt-4 text-end">
+                            <button class="btn btn-secondary me-2" (click)="toggleEdit()">Cancel</button>
+                            <button class="btn btn-success" (click)="saveChanges()">Save Changes</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card mb-4 mb-md-0 stats-card" [@fadeIn]>
+                            <div class="card-body">
+                                <h5 class="card-title mb-4">Account Statistics</h5>
+                                <p class="mb-1" style="font-size: .77rem;">Profile Completion</p>
+                                <div class="progress rounded mb-4" style="height: 5px;">
+                                    <div class="progress-bar" role="progressbar" style="width: 90%" aria-valuenow="90"
+                                        aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                                <p class="mb-1" style="font-size: .77rem;">Security Level</p>
+                                <div class="progress rounded mb-4" style="height: 5px;">
+                                    <div class="progress-bar" role="progressbar" style="width: 75%" aria-valuenow="75"
+                                        aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                                <p class="mb-1" style="font-size: .77rem;">Activity Status</p>
+                                <div class="progress rounded" style="height: 5px;">
+                                    <div class="progress-bar" role="progressbar" style="width: 80%" aria-valuenow="80"
+                                        aria-valuemin="0" aria-valuemax="100"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="card mb-4 mb-md-0 actions-card" [@fadeIn]>
+                            <div class="card-body">
+                                <h5 class="card-title mb-4">Quick Actions</h5>
+                                <div class="action-buttons">
+                                    <button class="btn btn-outline-primary mb-2 w-100" [routerLink]="['..']">
+                                        <i class="fas fa-lock me-2"></i>Change Password
+                                    </button>
+                                    <button class="btn btn-outline-primary mb-2 w-100">
+                                        <i class="fas fa-bell me-2"></i>Notification Settings
+                                    </button>
+                                    <button class="btn btn-outline-danger w-100" (click)="logOut()">
+                                        <i class="fas fa-sign-out-alt me-2"></i>Logout
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

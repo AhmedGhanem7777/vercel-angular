@@ -1,0 +1,296 @@
+<div class="filters-container">
+    <div class="row justify-content-between align-items-center">
+        <div class="col-md-4">
+            <div class="title">
+                <h1 class="font-xl font-bold text-center">Ads Table Details</h1>
+            </div>
+        </div>
+        <div class="col-md-6 d-flex flex-column flex-md-row align-items-center my-2">
+            <div class="search-box">
+                <i class="fas fa-search search-icon"></i>
+                <select class="search-input w-100" [(ngModel)]="searchInput">
+                    <option value="" selected>-- Search for ads using active --</option>
+                    <option value="true">Active</option>
+                    <option value="false">Inactive</option>
+                </select>
+            </div>
+            <div class="btn-add-ads w-auto m-2">
+                <button class="btn btn-primary w-100" (click)="showAddNewAdsModel()">Add Ads</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="table-responsive mt-4 d-none d-md-block">
+        <table class="table table-hover">
+            <thead>
+                <tr class="text-center">
+                    <th class="font-md font-simibold">Room Image</th>
+                    <th class="font-md font-simibold">Price</th>
+                    <th class="font-md font-simibold">Discount</th>
+                    <th class="font-md font-simibold">Capacity</th>
+                    <th class="font-md font-simibold">Active</th>
+                    <th class="font-md font-simibold">Actions</th>
+                </tr>
+            </thead>
+            <tbody *ngIf="isLoading">
+                <tr>
+                    <td colspan="5" class="text-center py-4">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                        <p class="mt-2 font-simibold font-lg">Loading ads . . .</p>
+                    </td>
+                </tr>
+            </tbody>
+            <ng-container *ngIf="(ads | searchAds:searchInput).length > 0">
+                <tbody *ngIf="!isLoading">
+                    <tr class="ads-row text-center" *ngFor="let item of ads | searchAds:searchInput">
+                        <td>
+                            <img [src]="item.room.images[0]" alt="Room Image" class="ads-avatar rounded-circle">
+                        </td>
+                        <td>{{calculateDiscountedPrice(item.room.price,item.room.discount).toFixed(0)}}</td>
+                        <td>{{item.room.discount}}</td>
+                        <td>{{item.room.capacity}}</td>
+                        <td>{{item.isActive}}</td>
+                        <td>
+                            <button class="btn btn-outline-primary" (click)="getSpecificRoomDetails(item._id)">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <button class="btn btn-outline-success mx-2" (click)="showEditingAdsModel(item._id)">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </button>
+                            <button class="btn btn-outline-danger" (click)="deleteAds(item._id)">
+                                <i class="fa-solid fa-trash-can"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </ng-container>
+        </table>
+
+        <div class="pagination-container d-flex justify-content-center align-items-center mt-4">
+            <div class="d-flex align-items-center">
+                <span class="me-2">Items per page:</span>
+                <div class="dropdown">
+                    <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="pageSizeDropdown"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        {{ itemsPerPage }}
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="pageSizeDropdown">
+                        <li><a class="dropdown-item" (click)="changePageSize(5)">5</a></li>
+                        <li><a class="dropdown-item" (click)="changePageSize(10)">10</a></li>
+                        <li><a class="dropdown-item" (click)="changePageSize(20)">20</a></li>
+                        <li><a class="dropdown-item" (click)="changePageSize(50)">50</a></li>
+                    </ul>
+                </div>
+                <span class="mx-4">{{ startItem }} – {{ endItem }} of {{ totalNumOfAds }}</span>
+                <div class="pagination-arrows">
+                    <button class="btn btn-outline-secondary me-2" [disabled]="currentPage === 1"
+                        (click)="previousPage()">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="btn btn-outline-secondary" [disabled]="currentPage === totalPages"
+                        (click)="nextPage()">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="d-block d-md-none">
+        <div *ngIf="isLoading" class="text-center py-4">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <p class="mt-2">Loading ads . . .</p>
+        </div>
+
+        <div *ngIf="!isLoading">
+            <div class="ads-card" *ngFor="let item of ads | searchAds:searchInput">
+                <div class="ads-card-header d-flex align-items-center">
+                    <img [src]="item.room.images[0]" alt="Room Image" class="ads-avatar-sm rounded-circle me-3">
+                    <span class="ads-id">{{ item.room.roomNumber }}</span>
+                </div>
+                <div class="ads-card-body">
+                    <div class="ads-info">
+                        <p><i class="fas fa-dollar-sign"></i>Price: {{ item.room.price }}</p>
+                        <p><i class="fas fa-percent"></i>Discount: {{ item.room.discount}}%</p>
+                        <p><i class="fas fa-users"></i>Capacity: {{ item.room.capacity }}</p>
+                        <p><i class="fas fa-user"></i>User: {{ item.createdBy.userName }}</p>
+                    </div>
+                    <div class="ads-actions d-flex justify-content-between align-items-center">
+                        <button class="btn btn-sm btn-outline-primary me-2" (click)="getSpecificRoomDetails(item._id)">
+                            <i class="fas fa-eye"></i> View
+                        </button>
+                        <button class="btn btn-sm btn-outline-success me-2" (click)="showEditingAdsModel(item._id)">
+                            <i class="fas fa-eye"></i> Edit
+                        </button>
+                        <button class="btn btn-sm btn-outline-danger me-2" (click)="deleteAds(item._id)">
+                            <i class="fas fa-eye"></i> Delete
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="pagination-container d-flex justify-content-center align-items-center mt-4">
+            <div class="d-flex flex-column flex-sm-row align-items-center">
+                <div class="d-flex align-items-center mb-2 mb-sm-0">
+                    <span class="me-2 small">Items per page:</span>
+                    <div class="dropdown">
+                        <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button"
+                            id="pageSizeDropdownMobile" data-bs-toggle="dropdown" aria-expanded="false">
+                            {{ itemsPerPage }}
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="pageSizeDropdownMobile">
+                            <li><a class="dropdown-item" href="javascript:void(0)" (click)="changePageSize(5)">5</a>
+                            </li>
+                            <li><a class="dropdown-item" href="javascript:void(0)" (click)="changePageSize(10)">10</a>
+                            </li>
+                            <li><a class="dropdown-item" href="javascript:void(0)" (click)="changePageSize(20)">20</a>
+                            </li>
+                            <li><a class="dropdown-item" href="javascript:void(0)" (click)="changePageSize(50)">50</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <span class="mx-sm-4 small">{{ startItem }} – {{ endItem }} of {{ totalNumOfAds }}</span>
+                <div class="pagination-arrows mt-2 mt-sm-0">
+                    <button class="btn btn-sm btn-outline-secondary me-2" [disabled]="currentPage === 1"
+                        (click)="previousPage()">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="btn btn-sm btn-outline-secondary" [disabled]="currentPage === totalPages"
+                        (click)="nextPage()">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="custom-modal" *ngIf="showModal">
+        <div class="modal-backdrop" (click)="closeModal()"></div>
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title font-simibold font-lg">Ads Details</h5>
+                    <button type="button" class="btn-close" (click)="closeModal()"></button>
+                </div>
+                <div class="modal-body" *ngIf="selectedAds">
+                    <div class="text-center mb-4">
+                        <img [src]="selectedAds.room.images[0]" alt="Room Image"
+                            class="ads-modal-avatar rounded-circle">
+                        <h4 class="mt-3 font-simibold font-md">{{selectedAds.room.roomNumber}}</h4>
+                    </div>
+                    <div class="ads-details mt-5">
+                        <div class="detail-item">
+                            <span class="detail-label"><i class="fas fa-id-card me-2"></i>Room ID:</span>
+                            <span class="detail-value">{{selectedAds.room._id}}</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label"><i class="fas fa-dollar-sign me-2"></i>Price:</span>
+                            <span class="detail-value">{{selectedAds.room.price}}</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label"><i class="fas fa-users me-2"></i>Capacity:</span>
+                            <span class="detail-value">{{selectedAds.room.capacity}}</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label"><i class="fas fa-percent me-2"></i>Discount:</span>
+                            <span class="detail-value">{{selectedAds.room.discount}}%</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label"><i class="fa-solid fa-user-tie me-2"></i>Created By:</span>
+                            <span class="detail-value">{{selectedAds.createdBy.userName}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" (click)="closeModal()">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="custom-modal" *ngIf="showEditModal">
+        <div class="modal-backdrop" (click)="closeModal()"></div>
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title font-simibold font-lg">Ads Editing</h5>
+                    <button type="button" class="btn-close" (click)="closeModal()"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="ads-details mt-5">
+                        <div class="detail-item d-flex flex-column justify-content-center">
+                            <label class="font-md" for="">Discount: </label>
+                            <input type="number" class="form-control" [(ngModel)]="discountEditing">
+
+                            <label class="font-md mt-4" for="">isActive: </label>
+                            <select class="form-control w-100" [(ngModel)]="isActiveEditing">
+                                <option value="" disabled selected>-- Select Status --</option>
+                                <option value="true">True</option>
+                                <option value="false">False</option>
+                            </select>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success me-3"
+                        (click)="editAds(idEditing,discountEditing,isActiveEditing)">Edit</button>
+                    <button type="button" class="btn btn-danger me-3" (click)="closeModal()">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="custom-modal" *ngIf="showAddModal">
+        <div class="modal-backdrop" (click)="closeModal()"></div>
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title font-simibold font-lg">Add Ads</h5>
+                    <button type="button" class="btn-close" (click)="closeModal()"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="ads-details mt-5">
+                        <div class="detail-item d-flex flex-column justify-content-center">
+
+                            <form [formGroup]="addAdsForm" (ngSubmit)="addNewAds(addAdsForm)">
+                                <label class="font-md" for="">Room Number: </label>
+                                <select class="form-control" formControlName="room">
+                                    <option value="" disabled selected hidden>-- Select a Room Number--</option>
+                                    <option *ngFor="let room of allRooms" [value]="room._id">
+                                        {{ room.roomNumber }}
+                                    </option>
+                                </select>
+
+                                <label class="font-md mt-4" for="">Discount: </label>
+                                <input type="number" class="form-control" formControlName="discount">
+
+                                <label class="font-md mt-4" for="">isActive: </label>
+                                <select class="form-control" formControlName="isActive">
+                                    <option value="" disabled selected hidden>-- Select Status --</option>
+                                    <option [value]="true">True</option>
+                                    <option [value]="false">False</option>
+                                </select>
+                            </form>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-success me-3"
+                                (click)="addNewAds(addAdsForm)">Add</button>
+                            <button type="button" class="btn btn-danger me-3" (click)="closeModal()">Close</button>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

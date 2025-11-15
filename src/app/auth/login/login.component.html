@@ -1,0 +1,66 @@
+<section class="login">
+    <div class="container">
+        <div class="row g-0 align-items-center min-vh-100">
+            <div class="col-lg-6 col-md-12">
+                <div class="login-content">
+                    <div class="logo">
+                        <h1><span class="special-logo">Stay</span>cation.</h1>
+                    </div>
+                    <div class="login-info">
+                        <div class="title">
+                            <h2 class="err-msg">{{errMessageFromApiLogin}}</h2>
+                            <h3 class="font-xl font-semibold">Sign in</h3>
+                            <p class="my-3">
+                                If you don't have an account register<br>
+                                You can <a [routerLink]="['../register']" class="font-bold cursor-pointer">Register
+                                    here!</a>
+                            </p>
+                        </div>
+                        <form (ngSubmit)="login(userData)" [formGroup]="userData" class="login-form">
+                            <div class="form-group">
+                                <label class="form-label">Email</label>
+                                <mat-form-field appearance="outline" class="w-100">
+                                    <mat-label>Enter your email</mat-label>
+                                    <input formControlName="email" matInput placeholder="pat@example.com"
+                                        (blur)="updateErrorMessage()" required />
+                                    @if (email.invalid) {
+                                    <mat-error>{{errorMessage()}}</mat-error>
+                                    }
+                                </mat-form-field>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label">Password</label>
+                                <mat-form-field appearance="outline" class="w-100">
+                                    <mat-label>Enter your password</mat-label>
+                                    <input formControlName="password" matInput [type]="hide() ? 'password' : 'text'" />
+                                    <button type="button" class="eye-pass" mat-icon-button matSuffix
+                                        (click)="clickEvent($event)" [attr.aria-label]="'Hide password'"
+                                        [attr.aria-pressed]="hide()">
+                                        <mat-icon>{{hide() ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                    </button>
+                                    @if (passwordControl.invalid && passwordControl.touched) {
+                                    <mat-error>{{passwordErrorMessage()}}</mat-error>
+                                    }
+                                </mat-form-field>
+                            </div>
+
+                            <div class="forgot-pass text-end mb-4">
+                                <a class="text-decoration-none" [routerLink]="['../forgot-pass']">Forgot Password?</a>
+                            </div>
+
+                            <div class="login-btn">
+                                <button type="submit" [disabled]="!userData.valid" class="w-100">Login</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 d-none d-lg-block">
+                <div class="login-image">
+                    <img src="assets/images/login.png" alt="Login" class="img-fluid">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,206 @@
+.change-password-container {
+    min-height: 90vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: transparent;
+    padding: 20px;
+  
+    @keyframes slideIn {
+      from {
+        transform: translateY(-20px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+  
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+  
+    .form-wrapper {
+      background: white;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 450px;
+      animation: slideIn 0.6s ease-out;
+  
+      @media (max-width: 480px) {
+        padding: 20px;
+      }
+    }
+  
+    .form-header {
+      text-align: center;
+      margin-bottom: 30px;
+      animation: fadeIn 0.8s ease-out;
+  
+      h2 {
+        color: var(--primary-color);
+        font-size: 2rem;
+        margin-bottom: 10px;
+  
+        @media (max-width: 480px) {
+          font-size: 1.5rem;
+        }
+      }
+  
+      p {
+        color: #666;
+        font-size: 0.95rem;
+        line-height: 1.5;
+      }
+    }
+  
+    .change-password-form {
+      .form-group {
+        margin-bottom: 25px;
+        animation: fadeIn 1s ease-out;
+  
+        label {
+          display: block;
+          margin-bottom: 8px;
+          color: #333;
+          font-weight: 500;
+        }
+  
+        .input-wrapper {
+          position: relative;
+  
+          i:not(.password-toggle) {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #666;
+          }
+  
+          .password-toggle {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #666;
+            cursor: pointer;
+            transition: color 0.3s ease;
+  
+            &:hover {
+              color: var(--primary-color);
+            }
+          }
+  
+          input {
+            width: 100%;
+            padding: 12px 15px 12px 45px;
+            border: 2px solid #e1e1e1;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+  
+            &:focus {
+              border-color: var(--primary-color);
+              box-shadow: 0 0 0 3px rgba(var(--primary-color-rgb), 0.1);
+              outline: none;
+            }
+  
+            &.is-invalid {
+              border-color: #dc3545;
+            }
+          }
+        }
+  
+        .error-message {
+          color: #dc3545;
+          font-size: 0.85rem;
+          margin-top: 5px;
+          animation: fadeIn 0.3s ease-out;
+        }
+      }
+  
+      .submit-btn {
+        width: 100%;
+        padding: 14px;
+        background: var(--primary-color);
+        color: white;
+        border: none;
+        border-radius: 10px;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        position: relative;
+        overflow: hidden;
+  
+        &:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 5px 15px rgba(var(--primary-color-rgb), 0.3);
+        }
+  
+        &:disabled {
+          background: #ccc;
+          cursor: not-allowed;
+          transform: none;
+          box-shadow: none;
+        }
+  
+        .spinner {
+          display: flex;
+          justify-content: center;
+          gap: 4px;
+  
+          .bounce1, .bounce2, .bounce3 {
+            width: 8px;
+            height: 8px;
+            background-color: white;
+            border-radius: 50%;
+            animation: bounce 1.4s infinite ease-in-out both;
+          }
+  
+          .bounce1 {
+            animation-delay: -0.32s;
+          }
+  
+          .bounce2 {
+            animation-delay: -0.16s;
+          }
+        }
+      }
+  
+      .success-message {
+        text-align: center;
+        margin-top: 20px;
+        padding: 15px;
+        background: #d4edda;
+        border-radius: 10px;
+        color: #155724;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        animation: fadeIn 0.5s ease-out;
+  
+        i {
+          font-size: 1.2rem;
+        }
+      }
+    }
+  }
+  
+  @keyframes bounce {
+    0%, 80%, 100% { 
+      transform: scale(0);
+    } 
+    40% { 
+      transform: scale(1.0);
+    }
+  }

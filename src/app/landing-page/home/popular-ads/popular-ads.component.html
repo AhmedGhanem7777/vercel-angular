@@ -1,0 +1,16 @@
+<div class="popular-ads-section">
+    <h2 class="section-title">Most popular ads</h2>
+    
+    <div class="ads-grid">
+      <div class="property-card" *ngFor="let item of ads">
+        <div class="property-image">
+          <img [src]="item.room.images[0]" alt="Room16">
+          <div class="price-tag">$ {{item.room.price}} per night</div>
+        </div>
+        <div class="property-info">
+          <div class="property-name">{{item.room.roomNumber}}</div>
+          <div class="property-owner">{{item.createdBy.userName}}</div>
+        </div>
+      </div>
+    </div>
+  </div>

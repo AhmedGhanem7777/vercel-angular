@@ -1,0 +1,138 @@
+<section class="register py-4">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-6 col-md-12">
+                <div class="register-content">
+                    <div class="logo">
+                        <h1 class="mb-0 font-lg"><span class="special-logo">Stay</span>cation.</h1>
+                    </div>
+                    <div class="register-info">
+                        <div class="title">
+                            <h3 class="font-xl font-semibold">Sign up</h3>
+                            <p class="text-muted">
+                                If you don't have an account register<br>
+                                You can <a [routerLink]="['../login']"
+                                    class="font-bold cursor-pointer text-primary text-decoration-none">
+                                    Login here!</a>
+                            </p>
+                        </div>
+                        <form (ngSubmit)="Register(userData)" [formGroup]="userData" class="register-form">
+                            <div class="profile-image mb-3 d-flex justify-content-center">
+                                <div class="upload-image-container">
+                                    <label
+                                        class="upload-image d-flex flex-column justify-content-center align-items-center"
+                                        [class.has-image]="imageUrl">
+                                        @if (!imageUrl) {
+                                        <i class="fa-solid fa-upload font-lg mb-2"></i>
+                                        <p class="mb-0">Upload Image</p>
+                                        } @else {
+                                        <img [src]="imageUrl" alt="Profile preview" class="preview-image">
+                                        }
+                                        <input type="file" class="d-none" accept="image/*"
+                                            (change)="onFileSelected($event)">
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="form-fields">
+                                <mat-form-field class="w-100 mb-2" appearance="outline">
+                                    <mat-label>User Name</mat-label>
+                                    <input formControlName="userName" matInput placeholder="Enter Your User Name"
+                                        required />
+                                    <mat-error *ngIf="userData.get('userName')?.hasError('required')">
+                                        Username is required
+                                    </mat-error>
+                                </mat-form-field>
+
+                                <mat-form-field class="w-100 mb-2" appearance="outline">
+                                    <mat-label>Email Address</mat-label>
+                                    <input formControlName="email" matInput placeholder="pat@example.com" required />
+                                    <mat-error *ngIf="userData.get('email')?.hasError('required')">
+                                        Email is required
+                                    </mat-error>
+                                    <mat-error *ngIf="userData.get('email')?.hasError('email')">
+                                        Please enter a valid email address
+                                    </mat-error>
+                                </mat-form-field>
+
+                                <div class="row g-2 mb-2">
+                                    <div class="col-sm-6">
+                                        <mat-form-field class="w-100" appearance="outline">
+                                            <mat-label>Phone Number</mat-label>
+                                            <input formControlName="phoneNumber" matInput placeholder="Enter Your Phone"
+                                                required />
+                                            <mat-error *ngIf="userData.get('phoneNumber')?.hasError('required')">
+                                                Phone number is required
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <mat-form-field class="w-100" appearance="outline">
+                                            <mat-label>Country</mat-label>
+                                            <input formControlName="country" matInput placeholder="Enter Your Country"
+                                                required />
+                                            <mat-error *ngIf="userData.get('country')?.hasError('required')">
+                                                Country is required
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                </div>
+
+                                <mat-form-field class="w-100 mb-2" appearance="outline">
+                                    <mat-label>Role</mat-label>
+                                    <mat-select formControlName="role" required>
+                                        <mat-option value="user">User</mat-option>
+                                        <mat-option value="admin">Admin</mat-option>
+                                    </mat-select>
+                                    <mat-error *ngIf="userData.get('role')?.hasError('required')">
+                                        Role is required
+                                    </mat-error>
+                                </mat-form-field>
+
+                                <mat-form-field class="w-100 mb-2" appearance="outline">
+                                    <mat-label>Password</mat-label>
+                                    <input formControlName="password" matInput [type]="hidePass() ? 'password' : 'text'"
+                                        required />
+                                    <button type="button" class="eye-pass" mat-icon-button matSuffix
+                                        (click)="clickEventPass($event)" [attr.aria-label]="'Hide password'"
+                                        [attr.aria-pressed]="hidePass()">
+                                        <mat-icon>{{hidePass() ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                    </button>
+                                    <mat-error *ngIf="userData.get('password')?.hasError('required')">
+                                        Password is required
+                                    </mat-error>
+                                </mat-form-field>
+
+                                <mat-form-field class="w-100 mb-2" appearance="outline">
+                                    <mat-label>Confirm Password</mat-label>
+                                    <input formControlName="confirmPassword" matInput
+                                        [type]="hideConfirmPass() ? 'password' : 'text'" required />
+                                    <button type="button" class="eye-pass" mat-icon-button matSuffix
+                                        (click)="clickEventConfirmPass($event)" [attr.aria-label]="'Hide password'"
+                                        [attr.aria-pressed]="hideConfirmPass()">
+                                        <mat-icon>{{hideConfirmPass() ? 'visibility_off' : 'visibility'}}</mat-icon>
+                                    </button>
+                                    <mat-error *ngIf="userData.get('confirmPassword')?.hasError('required')">
+                                        Confirm password is required
+                                    </mat-error>
+                                    <mat-error *ngIf="userData.get('confirmPassword')?.hasError('passwordMismatch')">
+                                        Passwords do not match
+                                    </mat-error>
+                                </mat-form-field>
+                            </div>
+
+                            <div class="register-btn">
+                                <button type="submit" class="w-100 btn-register" [disabled]="userData.invalid">
+                                    Register
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+

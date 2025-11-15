@@ -1,0 +1,17 @@
+<div class="ads-section">
+  <h2 class="section-title">Ads</h2>
+
+  <div class="ads-grid">
+
+    <div class="ad-card" *ngFor="let ad of popularAds">
+      <div class="ad-image">
+        <img [src]="ad.room.images[0]" alt="Room16">
+        <div class="discount-tag">{{ad.room.discount}}</div>
+      </div>
+      <div class="ad-info">
+        <div class="ad-name">{{ad.createdBy.userName}}</div>
+        <div class="ad-capacity"><i class="fa-solid fa-user me-2"></i>{{ad.room.capacity}} Person</div>
+      </div>
+    </div>
+  </div>
+</div>

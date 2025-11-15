@@ -1,0 +1,112 @@
+<app-navbar></app-navbar>
+<section class="explore pb-5">
+    <!-- Loading State -->
+    <div *ngIf="isLoading" class="col-12 text-center py-5">
+        <app-loading></app-loading>
+    </div>
+    <div class="container" *ngIf="!isLoading">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="head mt-5">
+                    <h2 class="text-center font-xxl font-simibold mb-3">Explore All Rooms</h2>
+                    <nav>
+                        <div class="row pt-2 justify-content-between align-items-center">
+                            <div class="col-3 col-md-4">
+                                <button (click)="goBack()"
+                                    class="arrow-button d-flex justify-content-center align-items-center">
+                                    <i class="fa-solid fa-arrow-left font-md"></i>
+                                </button>
+                            </div>
+                            <div class="col-9 col-md-4 position-relative inp">
+                                <input [(ngModel)]="searchInput" type="text" class="form-control rounded-5"
+                                    placeholder="Search by number of person">
+                                <i class="fa-solid fa-magnifying-glass cursor-pointer"></i>
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-4 justify-content-center align-items-center">
+            <ng-container *ngIf="(rooms | search:searchInput).length > 0; else noRooms">
+                <div class="col-md-4" *ngFor="let room of rooms | search:searchInput">
+                    <div class="room-card">
+                        <div class="room-image">
+                            <img [src]="room.images[0]" alt="Room Image" class="img-fluid">
+                            <span class="room-number">{{room.roomNumber}}</span>
+                            <span class="room-status" [class.booked]="room.isBooked">
+                                {{room.isBooked ? 'Booked' : 'Available'}}
+                            </span>
+                            <div class="hover-layer">
+                                <div class="icon-wrapper">
+                                    <a class="icon-btn" (click)="addRoomToFav(room._id)">
+                                        <i class="fa-regular fa-heart"></i>
+                                    </a>
+                                    <a class="icon-btn" [routerLink]="['room-details',room._id]">
+                                        <i class="fa-regular fa-eye"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="room-details">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <div class="capacity">
+                                    <i class="fa-solid fa-user"></i>
+                                    <span>{{room.capacity}} Person</span>
+                                </div>
+                                <div class="facilities">
+                                    <span *ngFor="let facility of room.facilities" class="facility-badge">
+                                        {{facility.name}}
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="price-section">
+                                <div class="current-price">${{calculateDiscountedPrice(room.price,
+                                    room.discount).toFixed(1)}}</div>
+                                <div class="original-price">${{room.price}}</div>
+                                <div class="discount-badge">-{{room.discount}}%</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="pagination-container d-flex justify-content-center align-items-center mt-4 flex-wrap">
+                    <div class="d-flex align-items-center flex-wrap gap-2">
+                        <div class="d-flex align-items-center">
+                            <span class="me-2">Items per page:</span>
+                            <div class="dropdown">
+                                <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="pageSizeDropdown"
+                                    data-bs-toggle="dropdown" aria-expanded="false">
+                                    {{ itemsPerPage }}
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="pageSizeDropdown">
+                                    <li><a class="dropdown-item" (click)="changePageSize(5)">5</a></li>
+                                    <li><a class="dropdown-item" (click)="changePageSize(10)">10</a></li>
+                                    <li><a class="dropdown-item" (click)="changePageSize(20)">20</a></li>
+                                    <li><a class="dropdown-item" (click)="changePageSize(50)">50</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <span class="mx-2">{{ startItem }} – {{ endItem }} of {{ totalNumOfRooms }}</span>
+                        <div class="pagination-arrows">
+                            <button class="btn btn-outline-secondary me-2" [disabled]="currentPage === 1"
+                                (click)="previousPage()">
+                                <i class="fas fa-chevron-left"></i>
+                            </button>
+                            <button class="btn btn-outline-secondary" [disabled]="currentPage === totalPages"
+                                (click)="nextPage()">
+                                <i class="fas fa-chevron-right"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+            <ng-template #noRooms>
+                <div class="col-12 text-center py-5">
+                    <img src="../../../../assets/images/no-rooms(1).webp" alt="No Rooms Available"
+                        class="img-fluid rounded-5 w-100" style="max-width: 500px;">
+                </div>
+            </ng-template>
+        </div>
+    </div>
+</section>
+<app-footer></app-footer>

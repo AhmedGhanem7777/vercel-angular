@@ -1,0 +1,140 @@
+<div class="sidebar" [class.mobile-open]="isMobileMenuOpen">
+    <div class="logo-container d-flex justify-content-start align-items-center">
+        <img *ngIf="profileImage; else defaultImage" [src]="profileImage" alt="Admin Image" class="logo">
+
+        <ng-template #defaultImage>
+            <img src="assets/images/user-Csi4vjZh.png" alt="Admin Image" class="logo">
+        </ng-template>
+        <span class="logo-text">Stay<span class="primary-color">cation.</span></span>
+    </div>
+
+    <nav class="nav-menu">
+        <ul class="nav-list">
+            <li class="nav-item">
+                <a class="nav-link">
+                    <span class="font-super-bold">General</span>
+                </a>
+                <ul class="submenu">
+                    <li>
+                        <a [routerLink]="['general']">
+                            <i class="fas fa-th-large"></i> Dashboard
+                        </a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['general/users']">
+                            <i class="fas fa-user"></i> Users
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+
+            <li class="nav-item">
+                <a class="nav-link">
+                    <span class="font-super-bold">Rooms Management</span>
+                </a>
+                <ul class="submenu">
+                    <li>
+                        <a [routerLink]="['rooms-management']">
+                            <i class="fas fa-door-open"></i> Rooms
+                        </a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['rooms-management/manage-room']">
+                            <i class="fa-solid fa-plus"></i> Manage Room
+                        </a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['rooms-management/facilities']">
+                            <i class="fas fa-bed"></i> Faciliies
+                        </a>
+                    </li>
+                    
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link">
+                    <span class="font-super-bold">Ads & Bookings</span>
+                </a>
+                <ul class="submenu">
+                    <li>
+                        <a [routerLink]="['ads-booking']">
+                            <i class="fas fa-bullhorn"></i> ADS
+                        </a>
+                    </li>
+                    <li>
+                        <a [routerLink]="['ads-booking/booking']">
+                            <i class="fas fa-calendar-check"></i> Booking
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+        </ul>
+    </nav>
+
+    <div class="profile-section">
+        <div class="profile-header" (click)="toggleProfile()">
+            <div class="avatar">
+                <img [src]="profileImage ? profileImage : '../../../../assets/images/user-Csi4vjZh.png'" class="w-100"
+                    alt="profile image">
+            </div>
+            <div class="user-info">
+                <div class="user-name">{{userName}}</div>
+                <div class="user-email">{{email}}</div>
+            </div>
+            <i class="fas fa-chevron-down chevron" [class.open]="isProfileOpen"></i>
+        </div>
+
+        <ul class="profile-menu" [class.open]="isProfileOpen">
+            <li>
+                <a [routerLink]="['setting/profile']" (click)="closeMenuOnMobile()">
+                    <i class="fas fa-user"></i>
+                    Profile
+                </a>
+            </li>
+            <li>
+                <a [routerLink]="['setting']" (click)="closeMenuOnMobile()">
+                    <i class="fas fa-cog"></i>
+                    Settings
+                </a>
+            </li>
+            <li class="cursor-pointer" (click)="logOut()">
+                <a class="btn-logOut" (click)="closeMenuOnMobile()">
+                    <i class="fas fa-sign-out-alt"></i>
+                    Logout
+                </a>
+            </li>
+        </ul>
+
+        <div class="feedback-link">
+            <a (click)="closeMenuOnMobile()" [routerLink]="['setting/feadback']">
+                <i class="fas fa-comment"></i>
+                Give us your feedback!
+            </a>
+        </div>
+    </div>
+</div>
+
+
+
+<nav class="mobile-nav">
+    <a [routerLink]="['general/users']" class="nav-item" (click)="closeMenuOnMobile()">
+        <i class="fas fa-user"></i>
+        <span>Users</span>
+    </a>
+    <a [routerLink]="['rooms-management']" class="nav-item" (click)="closeMenuOnMobile()">
+        <i class="fas fa-door-open"></i>
+        <span>Rooms</span>
+    </a>
+    <a [routerLink]="['ads-booking/booking']" class="nav-item" (click)="closeMenuOnMobile()">
+        <i class="fas fa-calendar-check"></i>
+        <span>Booking</span>
+    </a>
+    <a class="nav-item" (click)="toggleMobileMenu()">
+        <i class="fas fa-bars"></i>
+        <span>Menu</span>
+    </a>
+</nav>
+
+<div class="mobile-menu-overlay" [class.show]="isMobileMenuOpen" (click)="toggleMobileMenu()"></div>

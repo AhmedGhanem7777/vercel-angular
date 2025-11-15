@@ -1,0 +1,365 @@
+
+.filters-container {
+  padding: 24px;
+  background-color: #f8f9fa;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.search-box {
+  position: relative;
+  width: 60%;
+}
+
+.search-icon {
+  position: absolute;
+  left: 12px;
+  top: 12px;
+  color: #5a67d8;
+}
+
+.search-input {
+  width: 70%;
+  padding: 10px 35px;
+  border-radius: 20px;
+  border: 1px solid #e2e8f0;
+  transition: all 0.3s ease;
+}
+
+.search-input:focus {
+  border-color: #5a67d8;
+  box-shadow: 0 0 0 3px rgba(90, 103, 216, 0.2);
+  outline: none;
+}
+
+.search-input::placeholder {
+  font-size: 16px;
+  color: #a0aec0;
+}
+
+.btn-add-room .btn-primary {
+  background-color: #3498db;
+  border-color: #3498db;
+  padding: 8px 16px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.btn-add-room .btn-primary:hover {
+  background-color: #3498db;
+  border-color: #3498db;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 6px rgba(90, 103, 216, 0.2);
+}
+
+.room-avatar {
+  width: 80px;
+  height: 80px;
+  object-fit: cover;
+  border: 3px solid #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.room-avatar-sm {
+  width: 30px;
+  height: 30px;
+  object-fit: cover;
+  border: 2px solid #fff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.room-card {
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  margin-bottom: 15px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.room-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.room-card-header {
+  background-color: #3498db;
+  padding: 12px 16px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.room-card-body {
+  padding: 16px;
+  background-color: #fff;
+}
+
+.room-info p {
+  margin-bottom: 10px;
+  color: #4a5568;
+}
+
+.room-info i {
+  width: 20px;
+  color: #5a67d8;
+  margin-right: 8px;
+}
+
+.room-actions {
+  margin-top: 15px;
+  text-align: right;
+}
+
+.room-actions .btn-outline-primary {
+  color: #5a67d8;
+  border-color: #5a67d8;
+}
+
+.room-actions .btn-outline-primary:hover {
+  background-color: #5a67d8;
+  color: #fff;
+}
+
+.table {
+  border-collapse: separate;
+  border-spacing: 0;
+  width: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.table thead {
+  color: white;
+}
+
+.table th {
+  padding: 14px;
+  letter-spacing: 0.5px;
+  background-color: var(--primary-color);
+}
+
+.table td {
+  padding: 12px;
+  vertical-align: middle;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+
+.room-row {
+  transition: all 0.2s ease;
+}
+.room-row:hover {
+  background-color: #f7fafc;
+  cursor: pointer;
+  transform: scale(1.01);
+}
+
+
+.room-row:last-child td {
+  border-bottom: none;
+}
+
+.room-row td button {
+  cursor: pointer;
+  padding: 5px 10px !important;
+}
+
+.room-row td i {
+  font-size: 1.1rem;
+  transition: all 0.1s;
+}
+
+.room-row td i:hover {
+  transform: scale(1.2);
+}
+
+.pagination-container {
+  margin-top: 25px;
+}
+
+.dropdown-toggle {
+  min-width: 60px;
+  text-align: center;
+  background-color: #fff;
+  border-color: #4a6cf7;
+  color: #4a6cf7;
+}
+
+.dropdown-toggle:hover, .dropdown-toggle:focus {
+  background-color: #4a6cf7;
+  color: #fff;
+}
+
+.dropdown-item {
+  cursor: pointer;
+}
+
+.dropdown-item:hover {
+  background-color: #f0f4ff;
+  color: #4a6cf7;
+}
+
+.pagination-arrows button {
+  width: 40px;
+  height: 38px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-color: #4a6cf7;
+  color: #4a6cf7;
+  transition: all 0.2s ease;
+}
+
+.pagination-arrows button:hover:not([disabled]) {
+  background-color: #4a6cf7;
+  color: #fff;
+}
+
+.pagination-arrows button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+@media (max-width: 767.98px) {
+  .pagination-arrows button {
+    width: 34px;
+    height: 31px;
+  }
+}
+
+/* Modal styles */
+.room-modal-avatar {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border: 4px solid #f7fafc;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+}
+
+.room-details {
+  margin-top: 24px;
+}
+
+.detail-item {
+  display: flex;
+  margin-bottom: 16px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid #f1f1f1;
+}
+
+.detail-item:last-child {
+  border-bottom: none;
+}
+
+.detail-label {
+  width: 130px;
+  font-weight: 600;
+  color: #4a5568;
+}
+
+.detail-label i {
+  color: #5a67d8;
+}
+
+.detail-value {
+  flex: 1;
+  color: #2d3748;
+}
+
+/* Custom Modal Styles */
+.custom-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1050;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 1051;
+  backdrop-filter: blur(3px);
+}
+
+.modal-dialog {
+  position: relative;
+  z-index: 1052;
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.modal-content {
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  border: none;
+  overflow: hidden;
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid #e2e8f0;
+  background-color: #f7fafc;
+}
+
+.modal-title {
+  color: #2d3748;
+}
+
+.modal-body {
+  padding: 20px;
+}
+
+.modal-footer {
+  padding: 16px 20px;
+  border-top: 1px solid #e2e8f0;
+  display: flex;
+  justify-content: flex-end;
+  background-color: #f7fafc;
+}
+
+.modal-footer .btn-secondary {
+  background-color: #5a67d8;
+  border-color: #5a67d8;
+  color: white;
+  border-radius: 8px;
+  padding: 8px 16px;
+  transition: all 0.3s ease;
+}
+
+.modal-footer .btn-secondary:hover {
+  background-color: #4c51bf;
+  border-color: #4c51bf;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 6px rgba(90, 103, 216, 0.2);
+}
+
+.form-control {
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  padding: 8px 12px;
+  transition: all 0.3s ease;
+}
+
+.form-control:focus {
+  border-color: #5a67d8;
+  box-shadow: 0 0 0 3px rgba(90, 103, 216, 0.2);
+}
+
+.spinner-border.text-primary {
+  color: #5a67d8 !important;
+}

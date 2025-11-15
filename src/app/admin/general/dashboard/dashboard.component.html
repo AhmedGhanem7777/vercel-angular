@@ -1,0 +1,85 @@
+<section class="dashboard-container pb-5">
+    <div class="container-fluid p-0 m-0">
+        <div class="row g-4">
+            <div class="col-12 col-sm-6 col-lg-3">
+                <div class="counter-card">
+                    <div class="card-body">
+                        <i class="fas fa-users"></i>
+                        <h5 class="card-title">User Count</h5>
+                        <p class="card-text">{{ userCount }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-lg-3">
+                <div class="counter-card">
+                    <div class="card-body">
+                        <i class="fas fa-user-shield"></i>
+                        <h5 class="card-title">Admin Count</h5>
+                        <p class="card-text">{{ adminCount }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-lg-3">
+                <div class="counter-card">
+                    <div class="card-body">
+                        <i class="fas fa-clipboard-list"></i>
+                        <h5 class="card-title">Pending Bookings</h5>
+                        <p class="card-text">{{ pendingBookings }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-sm-6 col-lg-3">
+                <div class="counter-card">
+                    <div class="card-body">
+                        <i class="fas fa-check-circle"></i>
+                        <h5 class="card-title">Completed Bookings</h5>
+                        <p class="card-text">{{ completedBookings }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-4 mt-4">
+            <div class="col-12 col-lg-6">
+                <div class="by_chart">
+                    <h4 class="text-center mb-4">- Booking Status</h4>
+                    <div class="chart-container">
+                        <canvas id="bookingChart">{{chart}}</canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-lg-6">
+                <div class="by_chart">
+                    <h4 class="text-center mb-4">- Users and Admins</h4>
+                    <div class="chart-container">
+                        <canvas id="usersChart">{{newChart}}</canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-4 mt-4">
+            <div class="col-12 col-lg-6">
+                <div class="by_chart">
+                    <h4 class="text-center mb-4">- Facilities and Rooms</h4>
+                    <div class="chart-container">
+                        <canvas id="facilitiesChart">{{facilitiesChart}}</canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-12 col-lg-6">
+                <div class="by_chart">
+                    <h4 class="text-center mb-4">- Overall Statistics</h4>
+                    <div class="chart-container">
+                        <canvas id="overallChart">{{overallChart}}</canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

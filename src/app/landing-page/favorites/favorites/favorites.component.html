@@ -1,0 +1,38 @@
+<app-navbar></app-navbar>
+<section class="fav-room mt-3 pb-5">
+    <!-- Loading State -->
+    <div *ngIf="isLoading" class="col-12 text-center py-5">
+        <app-loading></app-loading>
+    </div>
+    <div class="container-fluid pb-5" *ngIf="!isLoading">
+        <div class="head mb-4">
+            <h2 class="text-center font-bold animate-title"><i class="heart fa-solid fa-heart me-2"></i>Your Room Favorites<i class="heart fa-solid fa-heart ms-2"></i></h2>
+        </div>
+        <div class="row g-4 justify-content-center align-items-center" *ngIf="favRooms && favRooms.length > 0">
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3 animate-card" *ngFor="let room of favRooms">
+                <div class="room-card">
+                    <div class="card">
+                        <button class="remove-btn" (click)="removeRoom(room._id)">
+                            <i class="fas fa-times"></i>
+                        </button>
+                        <div class="image-container">
+                            <img [src]="room.images[0]" class="card-img-top" alt="Room {{room.roomNumber}}">
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">Room {{room.roomNumber}}</h5>
+                            <div class="room-details">
+                                <p><i class="fas fa-users"></i> Capacity: {{room.capacity}} persons</p>
+                                <p><i class="fas fa-door-closed"></i> Room Number: {{room.roomNumber}}</p>
+                                <p><i class="fas fa-dollar-sign"></i> Price: ${{room.price}}/night</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="text-center mt-3" *ngIf="!favRooms || favRooms.length === 0">
+            <img src="../../../../assets/images/no-rooms(1).webp" alt="No Rooms Available" class="img-fluid rounded-5 w-100" style="max-width: 500px;">
+        </div>
+    </div>
+</section>
+<app-footer></app-footer>

@@ -1,0 +1,92 @@
+<app-navbar></app-navbar>
+<div class="room-details-container">
+  <!-- Loading State -->
+  <div *ngIf="isLoading" class="col-12 text-center py-5">
+    <app-loading></app-loading>
+  </div>
+  <div class="container pt-5" *ngIf="!isLoading">
+    <h2 class="room-details-line text-center font-xxl font-bold mb-5">Room Details</h2>
+    <div class="row">
+      <div class="col-lg-6 mb-4" *ngIf="roomData">
+        <div class="gallery-container">
+          <div class="main-image-container">
+            <button class="gallery-nav prev" (click)="moveGallery('prev')" [disabled]="selectedImageIndex === 0">
+              <i class="fas fa-chevron-left"></i>
+            </button>
+            <img [src]="roomData.images[selectedImageIndex]" class="main-room-image" [alt]="roomData.roomNumber">
+            <div class="facilities-name" *ngIf="roomData.facilities?.length">
+              <i class="fas fa-tag"></i>
+              {{roomData.facilities[0].name}}
+            </div>
+            <button class="gallery-nav next" (click)="moveGallery('next')"
+              [disabled]="selectedImageIndex === roomData.images.length - 1">
+              <i class="fas fa-chevron-right"></i>
+            </button>
+          </div>
+          <div class="thumbnails-container mt-3">
+            @for (index of visibleThumbnails; track index) {
+            <div class="thumbnail-wrapper">
+              <div class="thumbnail-container" [class.active]="selectedImageIndex === index"
+                (click)="setSelectedImage(index)">
+                <img [src]="roomData.images[index]" class="thumbnail-image"
+                  [alt]="roomData.facilities.length ? roomData.facilities[0].name : 'Room'">
+              </div>
+            </div>
+            }
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6" *ngIf="roomData">
+        <div class="room-info fade-in">
+          <div class="d-flex justify-content-between position-relative mb-3">
+
+            <button (click)="goBack()" *ngIf="!roomData.facilities.length"
+              class="arrow-button d-flex justify-content-center align-items-center">
+              <i class="fa-solid fa-arrow-left font-md"></i>
+            </button>
+            <h3 class="room-title" *ngIf="roomData.facilities.length">
+              <button (click)="goBack()" class="arrow-button d-flex justify-content-center align-items-center">
+                <i class="fa-solid fa-arrow-left font-md"></i>
+              </button>{{roomData.facilities[0].name}}
+            </h3>
+
+            <button class="reviewAndComment" [routerLink]="['/landing-page/explore/reviews',roomId]">
+              Review & Comment</button>
+          </div>
+
+          <div class="rating-container mb-3">
+            <div class="stars">
+              @for (star of [1,2,3,4,5]; track star) {
+              <i class="fas fa-star"></i>
+              }
+            </div>
+          </div>
+
+          <div class="price-section mb-4">
+            <div class="current-price">${{calculateDiscountedPrice(roomData.price, roomData.discount).toFixed(1)}}</div>
+            <div class="original-price">${{roomData.price}}</div>
+            <div class="discount-badge">-{{roomData.discount}}%</div>
+          </div>
+
+          <p class="description mb-4">Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis cum
+            animi iste temporibus odit possimus qui? Omnis reprehenderit eius ex, asperiores soluta non
+            culpa iste suscipit, dolore, maiores voluptates dicta.</p>
+
+          <button class="booking-button" [disabled]="roomData.isBooked" (click)="toggleBookingForm()">
+            <i class="fas fa-calendar-check"></i>
+            {{roomData.isBooked ? 'Room is Booked' : (showBookingForm ? 'Hide Booking Form' : 'Start Booking')}}
+          </button>
+        </div>
+        <div class="booking-form-wrapper" *ngIf="showBookingForm">
+          <app-booking-form [roomData]="roomData"></app-booking-form>
+
+          <!-- Comment Component below booking form -->
+          <div class="mt-4">
+            <!-- <app-form-comment [roomId]="roomId || ''"></app-form-comment> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>

@@ -1,0 +1,16 @@
+<div class="comment-form-container">
+  <h2>Leave a Comment</h2>
+
+  <form [formGroup]="addComment" (ngSubmit)="submitForm()">
+    <div class="form-group">
+      <label for="commentText">Your Comment:</label>
+      <textarea id="commentText" formControlName="comment" placeholder="Write your comment here..." rows="3" required>
+      </textarea>
+    </div>
+
+    <button type="submit" class="submit-btn" [disabled]="!isFormValid()" [class.disabled]="!isFormValid()"
+      [@buttonAnimation]="isFormValid() ? 'valid' : 'invalid'">
+      Submit Comment
+    </button>
+  </form>
+</div>

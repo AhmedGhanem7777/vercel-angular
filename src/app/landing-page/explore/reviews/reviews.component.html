@@ -1,0 +1,16 @@
+<app-navbar></app-navbar>
+<div class="container">
+    <h1>Product Review System</h1>
+    <div class="forms-container">
+        <div class="form-section">
+            <app-form-review [roomId]="roomId"></app-form-review>
+        </div>
+        <div class="form-section">
+            <app-form-comment [roomId]="roomId"></app-form-comment>
+        </div>
+    </div>
+</div>
+<div class="all-reviews">
+    <app-room-reviews></app-room-reviews>
+</div>
+<app-footer></app-footer>

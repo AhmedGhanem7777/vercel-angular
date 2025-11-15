@@ -1,0 +1,196 @@
+<div class="filters-container">
+    <div class="row justify-content-between align-items-center">
+        <div class="col-md-4">
+            <div class="title">
+                <h1 class="font-xl font-bold text-center">User Table Details</h1>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="search-box my-3">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" class="search-input" placeholder="Search for a user using name and email"
+                    [(ngModel)]="searchInput">
+            </div>
+        </div>
+    </div>
+
+    <div class="table-responsive mt-4 d-none d-md-block">
+        <table class="table table-hover">
+            <thead>
+                <tr class="text-center">
+                    <th class="font-md font-simibold text-white">Profile Image</th>
+                    <th class="font-md font-simibold text-white">User Name</th>
+                    <th class="font-md font-simibold text-white">Email</th>
+                    <th class="font-md font-simibold text-white">Phone Number</th>
+                    <th class="font-md font-simibold text-white">Actions</th>
+                </tr>
+            </thead>
+            <tbody *ngIf="isLoading">
+                <tr>
+                    <td colspan="5" class="text-center py-4">
+                        <div class="spinner-border text-primary" role="status">
+                            <span class="visually-hidden">Loading...</span>
+                        </div>
+                        <p class="mt-2 font-simibold font-lg">Loading users . . .</p>
+                    </td>
+                </tr>
+            </tbody>
+            <ng-container *ngIf="(users | searchUser:searchInput).length > 0">
+                <tbody *ngIf="!isLoading">
+                    <tr class="user-row text-center" *ngFor="let user of users | searchUser:searchInput">
+                        <td>
+                            <img [src]="user.profileImage" alt="User Profile" class="user-avatar rounded-circle">
+                        </td>
+                        <td>{{user.userName}}</td>
+                        <td>{{user.email}}</td>
+                        <td>+20{{user.phoneNumber}}</td>
+                        <td>
+                            <button class="btn btn-sm btn-outline-primary me-2"
+                                (click)="getSpecificUserDetails(user._id)">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </ng-container>
+        </table>
+
+        <div class="pagination-container d-flex justify-content-center align-items-center mt-4">
+            <div class="d-flex align-items-center">
+                <span class="me-2">Items per page:</span>
+                <div class="dropdown">
+                    <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="pageSizeDropdown"
+                        data-bs-toggle="dropdown" aria-expanded="false">
+                        {{ itemsPerPage }}
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="pageSizeDropdown">
+                        <li><a class="dropdown-item" (click)="changePageSize(5)">5</a></li>
+                        <li><a class="dropdown-item" (click)="changePageSize(10)">10</a></li>
+                        <li><a class="dropdown-item" (click)="changePageSize(20)">20</a></li>
+                        <li><a class="dropdown-item" (click)="changePageSize(50)">50</a></li>
+                    </ul>
+                </div>
+                <span class="mx-4">{{ startItem }} – {{ endItem }} of {{ totalNumOfUsers }}</span>
+                <div class="pagination-arrows">
+                    <button class="btn btn-outline-secondary me-2" [disabled]="currentPage === 1"
+                        (click)="previousPage()">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="btn btn-outline-secondary" [disabled]="currentPage === totalPages"
+                        (click)="nextPage()">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="d-block d-md-none">
+        <div *ngIf="isLoading" class="text-center py-4">
+            <div class="spinner-border text-primary" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <p class="mt-2">Loading users . . .</p>
+        </div>
+
+        <div *ngIf="!isLoading">
+            <div class="user-card" *ngFor="let user of users | searchUser:searchInput">
+                <div class="user-card-header d-flex align-items-center">
+                    <img [src]="user.profileImage" alt="User Profile" class="user-avatar-sm rounded-circle me-3">
+                    <span class="user-id">{{ user.userName }}</span>
+                </div>
+                <div class="user-card-body">
+                    <div class="user-info">
+                        <p><i class="fas fa-user"></i> {{ user.userName }}</p>
+                        <p><i class="fas fa-envelope"></i> {{ user.email|cuttext:20 }}</p>
+                        <p><i class="fas fa-phone"></i> +20{{ user.phoneNumber }}</p>
+                    </div>
+                    <div class="user-actions">
+                        <button class="btn btn-sm btn-outline-primary me-2" (click)="getSpecificUserDetails(user._id)">
+                            <i class="fas fa-eye"></i> View
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="pagination-container d-flex justify-content-center align-items-center mt-4">
+            <div class="d-flex flex-column flex-sm-row align-items-center">
+                <div class="d-flex align-items-center mb-2 mb-sm-0">
+                    <span class="me-2 small">Items per page:</span>
+                    <div class="dropdown">
+                        <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button"
+                            id="pageSizeDropdownMobile" data-bs-toggle="dropdown" aria-expanded="false">
+                            {{ itemsPerPage }}
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="pageSizeDropdownMobile">
+                            <li><a class="dropdown-item" href="javascript:void(0)" (click)="changePageSize(5)">5</a>
+                            </li>
+                            <li><a class="dropdown-item" href="javascript:void(0)" (click)="changePageSize(10)">10</a>
+                            </li>
+                            <li><a class="dropdown-item" href="javascript:void(0)" (click)="changePageSize(20)">20</a>
+                            </li>
+                            <li><a class="dropdown-item" href="javascript:void(0)" (click)="changePageSize(50)">50</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <span class="mx-sm-4 small">{{ startItem }} – {{ endItem }} of {{ totalNumOfUsers }}</span>
+                <div class="pagination-arrows mt-2 mt-sm-0">
+                    <button class="btn btn-sm btn-outline-secondary me-2" [disabled]="currentPage === 1"
+                        (click)="previousPage()">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="btn btn-sm btn-outline-secondary" [disabled]="currentPage === totalPages"
+                        (click)="nextPage()">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="custom-modal" *ngIf="showModal">
+        <div class="modal-backdrop" (click)="closeModal()"></div>
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title font-simibold font-lg">User Details</h5>
+                    <button type="button" class="btn-close" (click)="closeModal()"></button>
+                </div>
+                <div class="modal-body" *ngIf="selectedUser">
+                    <div class="text-center mb-4">
+                        <img [src]="selectedUser.profileImage" alt="User Profile"
+                            class="user-modal-avatar rounded-circle">
+                        <h4 class="mt-3 font-simibold font-md">{{selectedUser.userName}}</h4>
+                    </div>
+                    <div class="user-details mt-5">
+                        <div class="detail-item">
+                            <span class="detail-label"><i class="fas fa-id-card me-2"></i>User ID:</span>
+                            <span class="detail-value">{{selectedUser._id}}</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label"><i class="fas fa-envelope me-2"></i>Email:</span>
+                            <span class="detail-value">{{selectedUser.email}}</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label"><i class="fas fa-phone me-2"></i>Phone:</span>
+                            <span class="detail-value">+20{{selectedUser.phoneNumber}}</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label"><i class="fa-solid fa-globe me-2"></i>Country:</span>
+                            <span class="detail-value">{{selectedUser.country}}</span>
+                        </div>
+                        <div class="detail-item">
+                            <span class="detail-label"><i class="fa-solid fa-user-tie me-2"></i>Role:</span>
+                            <span class="detail-value">{{selectedUser.role}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" (click)="closeModal()">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

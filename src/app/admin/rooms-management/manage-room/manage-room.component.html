@@ -1,0 +1,89 @@
+<div class="card shadow">
+  <div class="card-header bg-primary text-white py-3">
+    <h3 class="mb-0 font-lg text-white">
+      <i class="fa {{isAddMode ? 'fa-plus-circle' : isEditMode ? 'fa-edit' : 'fa-eye'}}"></i>
+      {{isAddMode ? 'Add New Room' : isEditMode ? 'Edit Room' : 'View Room Details'}}
+    </h3>
+  </div>
+  <div class="card-body">
+    <form [formGroup]="addRoomForm" (ngSubmit)="onSubmit(addRoomForm)">
+      <div class="row mb-3 width-input m-auto g-3">
+        <div class="col-12 col-md-4">
+          <div class="form-group">
+            <label for="roomNumber" class="form-label">
+              <i class="fa fa-hashtag"></i> Room Number
+            </label>
+            <input type="number" id="roomNumber" formControlName="roomNumber" class="form-control">
+          </div>
+        </div>
+
+        <div class="col-12 col-md-4">
+          <div class="form-group">
+            <label for="price" class="form-label">
+              <i class="fa fa-dollar"></i> Price per Night
+            </label>
+            <input type="number" id="price" formControlName="price" class="form-control">
+          </div>
+        </div>
+
+        <div class="col-12 col-md-4">
+          <div class="form-group">
+            <label for="capacity" class="form-label">
+              <i class="fa fa-user"></i> Capacity
+            </label>
+            <input type="number" id="capacity" formControlName="capacity" class="form-control">
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group mb-3 width-input m-auto">
+        <label class="form-label">
+          <i class="fa fa-percent"></i> Discount
+        </label>
+        <input type="number" formControlName="discount" class="form-control">
+      </div>
+
+      <div class="form-group mb-3 width-input m-auto">
+        <label class="form-label">
+          <i class="fa fa-list"></i> Facilities
+        </label>
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-label>Facilities</mat-label>
+          <mat-select formControlName="facilities" multiple>
+            <mat-option *ngFor="let facility of facilities" [value]="facility._id">{{facility.name}}</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="form-group mb-3 width-input m-auto">
+        <label class="form-label">
+          <i class="fa fa-image"></i> Room Images
+        </label>
+        <div class="custom-dropzone" (dragover)="onDragOver($event)" (dragleave)="onDragLeave($event)"
+          (drop)="onDrop($event)">
+          <input type="file" #fileInput (change)="onFileSelected($event)" multiple accept="image/*" class="file-input">
+          <div class="dropzone-content">
+            <div class="upload-prompt" *ngIf="previewUrls.length === 0">
+              <i class="fa fa-cloud-upload fa-2x mb-2"></i>
+              <p>Drag and drop images here or click to upload</p>
+            </div>
+            <div class="image-preview-container" *ngIf="previewUrls.length > 0">
+              <div class="image-preview" *ngFor="let url of previewUrls; let i = index">
+                <img [src]="url" alt="Preview">
+                <button type="button" class="remove-btn" (click)="onRemove(i)">
+                  <i class="fa fa-times"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="d-grid gap-2 width-input m-auto">
+        <button type="submit" class="btn btn-success" [disabled]="addRoomForm.invalid || (!isAddMode && !isEditMode)">
+          <i class="fa fa-save"></i> {{isAddMode ? 'Save Room' : 'Update Room'}}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

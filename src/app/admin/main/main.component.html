@@ -1,0 +1,9 @@
+<div class="app-wrapper">
+    <app-sidebar [userName]="userName" [profileImage]="profileImage" [email]="email"></app-sidebar>
+    <div class="main-content">
+        <div class="content-wrapper py-5">
+            <app-dashboard-nav></app-dashboard-nav>
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+</div>

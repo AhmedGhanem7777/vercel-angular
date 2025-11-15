@@ -1,0 +1,82 @@
+<div class="reset-password-container">
+  <div class="form-wrapper">
+    <div class="form-header">
+      <h2>Reset Password</h2>
+      <p>Enter your OTP and new password</p>
+    </div>
+
+    <form [formGroup]="resetPasswordForm" (ngSubmit)="onSubmit(resetPasswordForm)" class="reset-password-form">
+
+      <input type="hidden" formControlName="email">
+
+      <!-- OTP Field -->
+      <div class="form-group">
+        <label for="seed">OTP Code</label>
+        <div class="input-wrapper">
+          <i class="fas fa-key"></i>
+          <input type="text" id="seed" formControlName="seed" placeholder="Enter OTP code"
+            [class.is-invalid]="resetPasswordForm.get('seed')?.invalid && resetPasswordForm.get('seed')?.touched">
+        </div>
+        <div class="error-message"
+          *ngIf="resetPasswordForm.get('seed')?.invalid && resetPasswordForm.get('seed')?.touched">
+          <span *ngIf="resetPasswordForm.get('seed')?.errors?.['required']">OTP is required</span>
+          <span
+            *ngIf="resetPasswordForm.get('seed')?.errors?.['minlength'] || resetPasswordForm.get('seed')?.errors?.['maxlength']">OTP
+            must be 4 digits</span>
+        </div>
+      </div>
+
+      <!-- Password Field -->
+      <div class="form-group">
+        <label for="password">New Password</label>
+        <div class="input-wrapper">
+          <i class="fas fa-lock"></i>
+          <input [type]="showPassword ? 'text' : 'password'" id="password" formControlName="password"
+            placeholder="Enter new password"
+            [class.is-invalid]="resetPasswordForm.get('password')?.invalid && resetPasswordForm.get('password')?.touched">
+          <i [class]="showPassword ? 'fas fa-eye-slash' : 'fas fa-eye'" class="password-toggle"
+            (click)="togglePasswordVisibility('password')"></i>
+        </div>
+        <div class="error-message"
+          *ngIf="resetPasswordForm.get('password')?.invalid && resetPasswordForm.get('password')?.touched">
+          <span *ngIf="resetPasswordForm.get('password')?.errors?.['required']">Password is required</span>
+          <span *ngIf="resetPasswordForm.get('password')?.errors?.['minlength']">Password must be at least 8
+            characters</span>
+          <span *ngIf="resetPasswordForm.get('password')?.errors?.['pattern']">Password must contain at least one
+            lowercase letter, one number, and one special character</span>
+        </div>
+      </div>
+
+      <!-- Confirm Password Field -->
+      <div class="form-group">
+        <label for="confirmPassword">Confirm Password</label>
+        <div class="input-wrapper">
+          <i class="fas fa-lock"></i>
+          <input [type]="showConfirmPassword ? 'text' : 'password'" id="confirmPassword"
+            formControlName="confirmPassword" placeholder="Confirm new password"
+            [class.is-invalid]="resetPasswordForm.get('confirmPassword')?.invalid && resetPasswordForm.get('confirmPassword')?.touched">
+          <i [class]="showConfirmPassword ? 'fas fa-eye-slash' : 'fas fa-eye'" class="password-toggle"
+            (click)="togglePasswordVisibility('confirmPassword')"></i>
+        </div>
+        <div class="error-message"
+          *ngIf="resetPasswordForm.get('confirmPassword')?.touched && resetPasswordForm.errors?.['mismatch']">
+          Passwords do not match
+        </div>
+      </div>
+
+      <button type="submit" [disabled]="resetPasswordForm.invalid || isLoading" class="submit-btn">
+        <span *ngIf="!isLoading">Reset Password</span>
+        <div class="spinner" *ngIf="isLoading">
+          <div class="bounce1"></div>
+          <div class="bounce2"></div>
+          <div class="bounce3"></div>
+        </div>
+      </button>
+
+      <div class="success-message" *ngIf="resetSuccess">
+        <i class="fas fa-check-circle"></i>
+        <p>Password has been reset successfully!</p>
+      </div>
+    </form>
+  </div>
+</div>

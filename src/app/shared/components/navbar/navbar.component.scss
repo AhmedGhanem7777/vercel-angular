@@ -1,0 +1,19 @@
+.navbar .navbar-brand{
+    font-size: 28px;
+    font-weight: 700;
+}
+.navbar .collapse ul li a{
+    font-size: 20px;
+}
+.link-active{
+    color: var(--primary-color);
+    font-weight: 600;
+}
+.navbar .dropdown img{
+    width: 40px;
+    height: 40px;
+    margin-right: 5px;
+}
+.dropdown-menu li a{
+    font-size: 16px !important;
+}

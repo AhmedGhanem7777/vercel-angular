@@ -1,0 +1,193 @@
+.profile-container {
+    background-color: #f8f9fa;
+    min-height: 100vh;
+    padding: 20px 0;
+  }
+  
+  .profile-card, .info-card, .activity-card, .stats-card, .actions-card {
+    border-radius: 15px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    border: none;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden;
+  }
+  
+  .profile-card:hover, .info-card:hover, .activity-card:hover, .stats-card:hover, .actions-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  }
+  
+  .profile-image-container {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    margin: 0 auto;
+  }
+  
+  .profile-image {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 5px solid #fff;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    transition: transform 0.5s ease;
+  }
+  
+  .profile-image:hover {
+    transform: scale(1.05);
+  }
+  
+  .profile-status {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: #dc3545;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    border: 2px solid white;
+    
+    &.verified {
+      background-color: #28a745;
+    }
+  }
+  
+  .field-label {
+    font-weight: 600;
+    color: #495057;
+  }
+  
+  .field-value {
+    font-size: 1rem;
+    transition: all 0.3s ease;
+  }
+  
+  .field-value:hover {
+    color: #007bff;
+  }
+  
+  .role-badge {
+    background-color: #6f42c1;
+    font-size: 0.9rem;
+    padding: 0.5em 1em;
+    border-radius: 20px;
+  }
+  
+  .progress-bar {
+    background-color: #007bff;
+    transition: width 1.5s ease-in-out;
+  }
+  
+  .action-buttons button {
+    transition: all 0.3s ease;
+    border-radius: 10px;
+    font-weight: 500;
+  }
+  
+  .action-buttons button:hover {
+    transform: translateX(5px);
+  }
+  
+  .list-group-item {
+    transition: background-color 0.3s ease;
+  }
+  
+  .list-group-item:hover {
+    background-color: #f8f9fa;
+  }
+  
+  .list-group-item i {
+    transition: transform 0.3s ease;
+  }
+  
+  .list-group-item:hover i {
+    transform: scale(1.2);
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 767.98px) {
+    .profile-image-container {
+      width: 120px;
+      height: 120px;
+    }
+    
+    .profile-image {
+      width: 120px;
+      height: 120px;
+    }
+    
+    .field-label, .field-value {
+      font-size: 0.9rem;
+    }
+    
+    .card-body {
+      padding: 1rem;
+    }
+  }
+  
+  @media (max-width: 575.98px) {
+    .profile-container {
+      padding: 10px 0;
+    }
+    
+    .profile-image-container {
+      width: 100px;
+      height: 100px;
+    }
+    
+    .profile-image {
+      width: 100px;
+      height: 100px;
+    }
+    
+    .profile-status {
+      width: 25px;
+      height: 25px;
+      bottom: 5px;
+      right: 5px;
+    }
+    
+    h2 {
+      font-size: 1.5rem;
+    }
+    
+    .field-label {
+      margin-bottom: 0.25rem !important;
+    }
+    
+    .row > hr {
+      margin: 0.5rem 0;
+    }
+  }
+  
+  /* Animation for form fields */
+  input.form-control {
+    animation: fadeInForm 0.5s ease;
+  }
+  
+  @keyframes fadeInForm {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Progress bar animation */
+  .progress-bar {
+    animation: progressAnimation 2s ease-in-out;
+  }
+  
+  @keyframes progressAnimation {
+    from {
+      width: 0%;
+    }
+  }

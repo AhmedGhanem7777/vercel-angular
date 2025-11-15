@@ -1,0 +1,25 @@
+<div class="review-form-container">
+  <h2>Leave a Review</h2>
+
+  <form [formGroup]="formReview" (ngSubmit)="submitForm()">
+    <div class="rating-container">
+      <label>Rating:</label>
+      <div class="stars">
+        <span *ngFor="let star of stars; let i = index" class="star" [class.filled]="(hoverRating || rating) >= star"
+          (click)="setRating(star)" (mouseenter)="setHoverRating(star)" (mouseleave)="resetHoverRating()">
+          ★
+        </span>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="reviewText">Your Review:</label>
+      <textarea id="reviewText" formControlName="review" placeholder="Write your review here..." rows="4">
+      </textarea>
+    </div>
+
+    <button type="submit" class="submit-btn" [disabled]="!formReview.valid" [class.disabled]="!formReview.valid">
+      Submit Review
+    </button>
+  </form>
+</div>

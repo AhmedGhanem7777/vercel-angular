@@ -1,0 +1,286 @@
+nav {
+    background-color: rgb(240 243 242);
+    padding: 10px;
+    border-radius: 15px;
+    animation: slideDown 0.8s ease-out forwards;
+    animation-delay: 0.3s;
+    opacity: 0;
+    transform: translateY(-100%);
+}
+
+@keyframes slideDown {
+    0% {
+        opacity: 0;
+        transform: translateY(-100%);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+nav .arrow-button {
+    background-color: var(--primary-color);
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 35px;
+    height: 35px;
+    transition: all 0.4s;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@media (min-width: 768px) {
+    nav .arrow-button {
+        width: 40px;
+        height: 40px;
+    }
+}
+
+nav .arrow-button:hover {
+    transform: translateX(-7px) scale(1.1);
+}
+
+nav .inp {
+    position: relative;
+}
+
+nav .inp i {
+    color: rgb(203 213 225);
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    nav .inp i {
+        font-size: 16px;
+    }
+}
+
+nav .inp input {
+    height: 35px;
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    nav .inp input {
+        height: 40px;
+        font-size: 16px;
+    }
+}
+
+nav .inp input::placeholder {
+    color: rgb(203 213 225);
+}
+
+/* Room Card Styles */
+.room-card {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+    margin-bottom: 20px;
+    transition: transform 0.3s ease;
+}
+
+.room-card:hover {
+    transform: translateY(-5px);
+}
+
+.room-image {
+    position: relative;
+    height: 200px;
+    overflow: hidden;
+}
+
+.room-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.room-number {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.room-status {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 14px;
+    background: #22c55e;
+    color: white;
+}
+
+.room-status.booked {
+    background: #ef4444;
+}
+
+.room-details {
+    padding: 15px;
+}
+
+.capacity {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: #64748b;
+}
+
+.capacity i {
+    font-size: 14px;
+}
+
+.facilities {
+    display: flex;
+    gap: 5px;
+}
+
+.facility-badge {
+    background: #f1f5f9;
+    color: #64748b;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+}
+
+.price-section {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.current-price {
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+.original-price {
+    text-decoration: line-through;
+    color: #94a3b8;
+    font-size: 16px;
+}
+
+.discount-badge {
+    background: #fee2e2;
+    color: #ef4444;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+/* Hover Layer Styles */
+.hover-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transform: scale(0.8);
+    transition: all 0.3s ease;
+}
+
+.room-image:hover .hover-layer {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.icon-wrapper {
+    display: flex;
+    gap: 15px;
+}
+
+.icon-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: white;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    transform: translateY(20px);
+    opacity: 0;
+}
+
+.room-image:hover .icon-btn {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.icon-btn:first-child {
+    transition-delay: 0.1s;
+}
+
+.icon-btn:last-child {
+    transition-delay: 0.2s;
+}
+
+.icon-btn i {
+    font-size: 18px;
+    color: var(--primary-color);
+}
+
+.icon-btn:hover {
+    background: var(--primary-color);
+}
+
+.icon-btn:hover i {
+    color: white;
+}
+
+/* Pagination Responsive Styles */
+.pagination-container {
+    width: 100%;
+    padding: 0 15px;
+}
+
+@media (max-width: 768px) {
+    .pagination-container {
+        font-size: 14px;
+    }
+    
+    .pagination-container .btn {
+        padding: 4px 8px;
+    }
+    
+    .pagination-container .dropdown-toggle {
+        padding: 4px 8px;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 576px) {
+    .pagination-container {
+        font-size: 12px;
+    }
+    
+    .pagination-container .mx-4 {
+        margin: 8px 0;
+    }
+}

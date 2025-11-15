@@ -1,0 +1,50 @@
+<app-navbar></app-navbar>
+<div class="home-container">
+  <div class="content-wrapper">
+    <div class="text-section">
+      <h1 class="main-heading">Forget Busy Work,<br>Start Next Vacation</h1>
+      <p class="subtitle">
+        We provide what you need to enjoy your holiday with family.<br>
+        Time to make another memorable moments.
+      </p>
+
+      <div class="booking-section">
+        <h2 class="booking-title">Start booking</h2>
+        <p class="date-label">Pick a date</p>
+
+        <div class="date-picker-container">
+          <div class="date-input">
+            <label for="startDate">Start Date</label>
+            <input type="date" id="startDate">
+          </div>
+
+          <div class="date-input">
+            <label for="endDate">End Date</label>
+            <input type="date" id="endDate">
+          </div>
+        </div>
+
+        <p class="capacity-label">Capacity</p>
+        <div class="capacity-control">
+          <button class="capacity-btn decrease" (click)="decreaseCapacity()">−</button>
+          <div class="capacity-display">{{ capacity }}</div>
+          <button class="capacity-btn increase" (click)="increaseCapacity()">+</button>
+        </div>
+
+        <button class="explore-btn" [routerLink]="['../explore']" routerLinkActive="router-link-active" >Explore</button>
+      </div>
+    </div>
+
+    <div class="image-section">
+      <img src="assets/images/photo-1520250497591-112f2f40a3f4.avif" alt="Vacation home">
+    </div>
+  </div>
+
+  <!-- Component sections -->
+  <app-popular-ads></app-popular-ads>
+  <app-hotels></app-hotels>
+  <app-houses></app-houses>
+  <app-ads></app-ads>
+  <app-testimonial></app-testimonial>
+</div>
+<app-footer></app-footer>
